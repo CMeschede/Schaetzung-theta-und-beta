@@ -1,7 +1,8 @@
 ## Schaetzung der Parameter beta in (0,1] und theta in (0,1] der Mischverteilung 
 ## des Dirac-Mass am Pkt 0 und der ML(beta,theta^(-1/beta))
-## (1-theta) * Dirac-Maß + theta * ML-Maß
+## (1-theta) * Dirac-Mass + theta * ML-Mass
 ## mithilfe von fraktionierten Momenten
+## test test
 
 
 
