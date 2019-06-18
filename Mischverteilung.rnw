@@ -141,6 +141,7 @@ fct_beta <- function(q1 , q2 , data){         # estimator for beta
 @
 \begin{figure} 
 <<plot1 , echo =FALSE , fig.width=6, fig.height=4, out.width='.6\\linewidth' , results = FALSE>>=
+set.seed(1234)
 n <- 10000
 beta <- 0.5
 theta <- 0.5
@@ -178,6 +179,7 @@ Figure \ref{fig1} shows $\hat{\theta}_q(\beta)$ depending on $\beta$ for various
 \\
 Now we look how it works with R:
 <<first try>>=
+set.seed(2345)
 ## chosen parameters:
 # 1) true parameters
 beta <- 0.5
@@ -230,7 +232,6 @@ abs(beta-beta_hat2); abs(theta-theta_hat2)
 ## -> unsolved problem: which fraction q is small enough 
 ##    to estimate theta reliably?
 @
-
 \end{document}
 
 
