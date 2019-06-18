@@ -1,0 +1,236 @@
+\documentclass[10pt, a4paper]{article}
+    \pagestyle{empty}
+    \renewcommand{\baselinestretch}{1.5}
+    \usepackage[english]{babel}
+ 
+\usepackage[top=2.2cm,bottom=2.2cm, left = 2.1cm, right = 2.1cm]{geometry}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage{geometry}
+\usepackage{amsfonts}
+\usepackage{ifsym}
+\usepackage{booktabs}
+\usepackage{enumerate}
+\usepackage{a4wide}
+\usepackage{float}
+\usepackage{dsfont}
+\usepackage{hhline}
+\usepackage{lscape}
+\usepackage{stmaryrd}
+\usepackage{paralist}
+%\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{nicefrac}
+
+
+\usepackage[usenames,x11names]{xcolor} % Die Optionen definieren zusätzliche Farben (siehe Dokumentation)
+\usepackage{graphicx}
+\usepackage{subfigure}
+% Tikz zeug
+\usepackage{tikz}
+\usepackage{tkz-tab}
+\newcommand{\widebar}{\overline}
+
+
+%\input{definitionen}
+
+\newfont{\suet}{suet14}
+\DeclareTextFontCommand{\textsuet}{\suet}
+
+
+
+\newcommand{\Var}{\text{Var}}
+\newcommand{\Ew}{\mathbb{E}}
+\newcommand{\med}{\text{med}}
+\newcommand{\MSE}{\text{MSE}}
+\newcommand{\Bias}{\text{Bias}}
+\newcommand{\A}{\mathcal{A}}
+\renewcommand{\O}{\Omega}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Borell}{\mathfrak{B}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\vt}{\vartheta}
+\renewcommand{\le}{\leqslant} % ich finde Kleinergleich mit schrägen Strich schöner
+\renewcommand{\ge}{\geqslant}
+
+%-- charakteristische-Funktion-/Indikatorfunktion-Eins '\ind'
+\usepackage{silence}
+\WarningFilter{latexfont}{Size substitutions with differences}
+\WarningFilter{latexfont}{Font shape `U/bbold/m/n' in size}
+\DeclareSymbolFont{bbold}{U}{bbold}{m}{n}
+\DeclareSymbolFontAlphabet{\mathbbold}{bbold}
+\newcommand{\ind}{\mathbbold{1}} 
+
+    \setlength{\textwidth}{15cm}
+\setlength{\oddsidemargin}{0.5cm}
+
+\setlength{\parskip}{2ex plus0.5ex minus0.5ex}
+\setlength{\parindent}{0em}
+\renewcommand{\labelenumi}{\alph{enumi})}
+\renewcommand{\vt}{\vartheta}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}\text{ar}}
+\newcommand{\C}{\mathbb{C}\text{ov}}
+\renewcommand{\P}{\mathbb{P}}
+
+\begin{document}
+	
+	<<setup, include=FALSE, cache=FALSE>>=
+	library(knitr)
+	# set global chunk options
+	opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
+	options(formatR.arrow=TRUE,width=90)
+	@
+
+
+
+\subsection*{Parameter Estimation of a Mixture Distribution}
+Let $X_1,\dots,X_n$ be a stationary time series with extremal index $\theta\in (0,1]$ (see Beirlant et al, 2004) and $W_1,\dots,W_n$ iid, heavy-tailed waiting times. We can show that the limiting distribution of the excess waiting times with threshold $u_n$ ($u_n \rightarrow x_R$) is a mixture distribution out of the dirac measure at point zero and the Mittag-Leffler distribution $ML(\beta,\theta^{-1/\beta})$, $\beta \in (0,1]$, with weights $(1-\theta,\theta)$ :
+\begin{align} \label{eq3}
+	\mathbb{P}_{\beta,\theta}:=(1-\theta)\delta_0+\theta \cdot ML(\beta,\theta^{-1/\beta}).
+\end{align}
+We want to estimate the two unknown parameters $\beta$ and $\theta$ with the method of moments. But since the ML-distribution does not have finite moments we have a look at the fractional moments. Let $q \in (0,1)$. The $q$-th fractional moment of a $ML(\beta,\gamma)$-distributed random variable $Y$ is:
+\begin{align}
+\mathbb{E}(Y^q)=\frac{ q \cdot \pi \cdot  \gamma^q}{\beta \cdot \Gamma(1-q)\sin(\frac{q \cdot \pi}{\beta})}, \qquad \text{for } 0 < q < \beta
+\end{align}
+(Cahoy, 2013). 
+Then the $q$-th fractional moment of $T \sim \mathbb{P}_{\beta,\theta}$ is
+\begin{align} \label{eq1}
+m_q:=m_q(T):&=\mathbb{E}(T^q) = (1-\theta)\mathbb{E}(Y^q)+\theta\mathbb{E}(X^q) = \theta\mathbb{E}(X^q) \\
+&= \theta^{\frac{\beta-q}{\beta}} \cdot \frac{ q \cdot \pi  }{\beta \cdot \Gamma(1-q)\sin(\frac{q \cdot \pi}{\beta})} \nonumber
+\end{align}
+with $Y \sim \delta_0$ and $X \sim ML(\beta,\theta^{-1/\beta})$, $q<\beta$.
+The empirical $q$-th fractional moment $\hat{m}_q=\frac{1}{n}\sum_{i=1}^{n}T_i^q$, $T_1,\dots,T_n \overset{iid}{\sim} \mathbb{P}_{\beta,\theta}$, is an unbiased estimator of $m_q$ and for $2q < \beta$ the estimator $\hat{m}_q$ is consistent in mean square:
+\begin{align}
+	\text{Var}(\hat{m}_q)
+	&=\mathbb{E}(\hat{m}_q^2)-\mathbb{E}(\hat{m}_q)^2 \\ \nonumber
+	&= \frac{1}{n^2}\mathbb{E}\left( \sum_{i \neq j} T_i^q T_j^q + \sum_{i=1}^{n} T_i^{2q} \right) - m_q^2 \\ \nonumber
+	&= \frac{1}{n^2}\left(  n(n-1) \mathbb{E}(T_1^q)^2 + n \mathbb{E}(T_1^{2q}) \right) - m_q^2 \\ \nonumber
+	&= \frac{n-1}{n} m_q^2 + \frac{1}{n} m_{2q} - m_q^2 \overset{n \to \infty}{\longrightarrow} 0. 
+\end{align}
+Since $\lim\limits_{x \to 0}\frac{\sin(x\pi)}{x\pi} = 1$ (easily shown by using L'Hopital's rule) and $\Gamma(1)=1$ it follows 
+\begin{align} \label{eq2}
+	\lim\limits_{q \to 0} m_q = \theta.
+\end{align}
+By solving (\ref{eq1}) for $\theta$ and using the empirical fractional moment $\hat{m}_q$, we get an estimator $\hat{\theta}_q(\beta)$ depending on $\beta$:
+\begin{align}
+	\hat{\theta}_q(\beta)=\left[ \frac{\beta \cdot \Gamma(1-q)\sin(\frac{q \cdot \pi}{\beta})}{q \cdot \pi} \cdot \widehat{m}_q \right]^{\frac{\beta}{\beta-q}}
+\end{align}
+Therefore we have to estimate $\beta$ first by calculating the root of $\hat{\theta}_{q_1}(\beta)-\hat{\theta}_{q_2}(\beta)$ on $(\max(q_1,q_2),1]$ (we choose $\max(q_1,q_2)$ as the lower interval limit because $\beta>q_1,q_2$ has to be fulfilled, otherwise the fractional moments don't exist). 
+It is important to choose the fractions $q_1$ and $q_2$ small enough (smaller than the (unknown) $\beta$) otherwise we can't find $\beta$ by calculating the root of $\hat{\theta}_{q_1}(\beta)-\hat{\theta}_{q_2}(\beta)$ because $\beta \notin (\max(q_1,q_2),1]$ for $\beta \le q_1,q_2$. $\hat{\theta}_q(\beta)$ is not unbiased but for smaller $q$ the bias gets smaller because of (\ref{eq2}).
+<<functions , echo = FALSE , cache = TRUE>>=
+## functions:
+fct_empfracmom <- function( q , data ){       # emp. frac. moment
+					r <- 1/(length(data))*sum(data^q)
+					return(r)       }
+fct_theta <- function( beta , q , data ){     # estimator for theta
+				r <- ( ( beta*gamma(1-q)*sin(pi*q/beta) )/( q*pi )*
+				fct_empfracmom(q , data) )^(beta/(beta-q))
+				return(r)               }
+fct_root <- function( beta , q1 , q2 , data){
+				r <- fct_theta( beta , q1 , data) - fct_theta( beta , q2 , data)
+				return(r)                  }
+fct_beta <- function(q1 , q2 , data){         # estimator for beta
+				r <- uniroot(fct_root , c(max(q1,q2)+0.001,1) , q1 = q1 , 
+				q2 = q2 , data = data)
+				return(r$root)      }   
+@
+\begin{figure} 
+<<plot1 , echo =FALSE , fig.width=6, fig.height=4, out.width='.6\\linewidth' , results = FALSE>>=
+n <- 10000
+beta <- 0.5
+theta <- 0.5
+# simulated sample:
+prob <- sample( c(0,1) , size = n , replace = T , prob = c(1-theta , theta))
+
+# install.packages("MittagLeffleR") 
+# (we need the R-package 'MittagLeffleR' to sample ML-distributed values)
+
+daten <- sapply(prob ,                       # sample
+	function(x){ ifelse( x == 0 , return(0) , 
+		return( MittagLeffleR::rml(1 , tail = beta , 
+		scale = theta^(-1/beta)) 
+	) ) } )
+
+
+b <- seq(0.001,1,0.001)
+q <- c(0.01,0.1,0.4,0.5)
+par(mar = c(4,4,0.5,0.5))
+plot(b[b>q[1]] , fct_theta(b[b>q[1]], q=q[1] , data=daten) , xlim = c(0,1) , ylim = c(0,1) , type = "l" , 
+xlab = "beta" , ylab = "estimated theta")
+lines(b[b>q[2]] , fct_theta(b[b>q[2]], q=q[2] , data=daten) , col="blue" )
+lines(b[b>q[3]] , fct_theta(b[b>q[3]], q=q[3] , data=daten) , col="darkgreen" )
+lines(b[b>q[4]] , fct_theta(b[b>q[4]], q=q[4] , data=daten) , col="violet" )
+points(beta , theta , col = "red" , pch = 19)
+legend("bottomright" , c("q=0.01" , "q=0.1" , "q=0.4" , "q=0.5" , "true parameters") , 
+	col = c("black" , "blue" , "darkgreen" , "violet" , "red") , pch = c(16,16,16,16,19))
+
+@
+\vspace{-0.4cm}
+\caption{Figure 1 shows $\hat{\theta}_q(\beta)$ depending on $\beta$ for various fractions $q$. It is based on $n=10000$ $\mathbb{P}_{0.5,0.5}$-distributed data.}
+\label{fig1}
+\end{figure}
+Figure \ref{fig1} shows $\hat{\theta}_q(\beta)$ depending on $\beta$ for various fractions $q$. We can see that the curves of lower fractions $q$ intersect the true parameter while the curve of $p=\Sexpr{beta}=\beta$ doesn't. As well we can see that for small fraction $q$ the estimator $\hat{\theta}_q(\beta)$ is less dependend of $\beta$.
+\\
+Now we look how it works with R:
+<<first try>>=
+## chosen parameters:
+# 1) true parameters
+beta <- 0.5
+theta <- 0.5
+# 2) random sample
+n <- 10000                                   # sample size
+# 3) fractions
+q1 <- 0.01
+q2 <- 0.05
+## sample:
+prob <- sample( c(0,1) , size = n , replace = T , prob = c(1-theta , theta))
+# we need the R-package 'MittagLeffleR' to sample ML-distributed values:
+# install.packages("MittagLeffleR") 
+daten <- sapply(prob ,                       # sample
+		function(x){ ifelse( x == 0 , return(0) , 
+			return( MittagLeffleR::rml(1 , tail = beta , 
+			scale = theta^(-1/beta)) 
+			) ) } )
+## functions:
+fct_empfracmom <- function( q , data ){       # emp. frac. moment
+		r <- 1/(length(data))*sum(data^q)
+		return(r)       }
+fct_theta <- function( beta , q , data ){     # estimator for theta
+		r <- ( ( beta*gamma(1-q)*sin(pi*q/beta) )/( q*pi )*
+		fct_empfracmom(q , data) )^(beta/(beta-q))
+		return(r)               }
+fct_root <- function( beta , q1 , q2 , data){
+		r <- fct_theta( beta , q1 , data) - fct_theta( beta , q2 , data)
+		return(r)                  }
+fct_beta <- function(q1 , q2 , data){         # estimator for beta
+		r <- uniroot(fct_root , c(max(q1,q2)+0.001,1) , q1 = q1 , 
+		q2 = q2 , data = data)
+		return(r$root)      }
+## estimating beta and theta
+# estimating beta by calculating the root:
+beta_hat1 <- fct_beta(q1=q1 , q2=q2 , data = daten); beta_hat1
+# estimating theta by using beta_hat1
+theta_hat11 <- fct_theta(beta = beta_hat1 , q=q1 , data = daten); theta_hat11
+theta_hat12 <- fct_theta(beta = beta_hat1 , q=q2 , data = daten); theta_hat12
+# error:
+abs(beta-beta_hat1); abs(theta-theta_hat11); abs(theta-theta_hat12)
+## -> it works
+
+# estimating theta by calculating the q-th emp. frac. moment with q very small: 
+theta_hat2 <- fct_empfracmom(10^{-6} , data=daten); theta_hat2
+beta_hat2 <- uniroot(function(x){fct_theta(x , q=q1 , data=daten)-theta_hat2} , 
+interval = c(q1,1))$root; beta_hat2
+abs(beta-beta_hat2); abs(theta-theta_hat2)
+## -> works as well; 
+## -> unsolved problem: which fraction q is small enough 
+##    to estimate theta reliably?
+@
+
+\end{document}
+
+
