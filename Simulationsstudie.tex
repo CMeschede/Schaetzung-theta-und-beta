@@ -1,0 +1,205 @@
+\documentclass[10pt, a4paper]{article}\usepackage[]{graphicx}\usepackage[]{color}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+    \pagestyle{empty}
+    \renewcommand{\baselinestretch}{1.5}
+    \usepackage[english]{babel}
+ 
+\usepackage[top=2.2cm,bottom=2.2cm, left = 2.1cm, right = 2.1cm]{geometry}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{mathpazo}
+\usepackage{geometry}
+\usepackage{amsfonts}
+\usepackage{ifsym}
+\usepackage{booktabs}
+\usepackage{enumerate}
+\usepackage{a4wide}
+\usepackage{float}
+\usepackage{dsfont}
+\usepackage{hhline}
+\usepackage{lscape}
+\usepackage{stmaryrd}
+\usepackage{paralist}
+%\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{nicefrac}
+
+
+\usepackage[usenames,x11names]{xcolor} % Die Optionen definieren zusätzliche Farben (siehe Dokumentation)
+\usepackage{graphicx}
+\usepackage{subfigure}
+% Tikz zeug
+\usepackage{tikz}
+\usepackage{tkz-tab}
+\newcommand{\widebar}{\overline}
+
+
+%\input{definitionen}
+
+\newfont{\suet}{suet14}
+\DeclareTextFontCommand{\textsuet}{\suet}
+
+
+
+\newcommand{\Var}{\text{Var}}
+\newcommand{\Ew}{\mathbb{E}}
+\newcommand{\med}{\text{med}}
+\newcommand{\MSE}{\text{MSE}}
+\newcommand{\Bias}{\text{Bias}}
+\newcommand{\A}{\mathcal{A}}
+\renewcommand{\O}{\Omega}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Borell}{\mathfrak{B}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\vt}{\vartheta}
+\renewcommand{\le}{\leqslant} % ich finde Kleinergleich mit schrägen Strich schöner
+\renewcommand{\ge}{\geqslant}
+
+%-- charakteristische-Funktion-/Indikatorfunktion-Eins '\ind'
+\usepackage{silence}
+\WarningFilter{latexfont}{Size substitutions with differences}
+\WarningFilter{latexfont}{Font shape `U/bbold/m/n' in size}
+\DeclareSymbolFont{bbold}{U}{bbold}{m}{n}
+\DeclareSymbolFontAlphabet{\mathbbold}{bbold}
+\newcommand{\ind}{\mathbbold{1}} 
+
+    \setlength{\textwidth}{15cm}
+\setlength{\oddsidemargin}{0.5cm}
+
+\setlength{\parskip}{2ex plus0.5ex minus0.5ex}
+\setlength{\parindent}{0em}
+\renewcommand{\labelenumi}{\alph{enumi})}
+\renewcommand{\vt}{\vartheta}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}\text{ar}}
+\newcommand{\C}{\mathbb{C}\text{ov}}
+\renewcommand{\P}{\mathbb{P}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+	
+	
+	
+\subsection*{Simulation Study}
+Let $(J_i)_{n \in \mathbb{N}}$ be a strictly stationary sequence with marginal distribution $F_J$ and right endpoint $x_R$ and an i.i.d. sequence of heavy-tailed random variables $(W_i)_{i \in \mathbb{N}}$ the waiting times between the observations $J_i$ which are independent of $J_i$ for $i \in \mathbb{N}$. Moreover, we assume that the $W_i$'s are in the domain of attraction of a strictly stable random variable $D$ with laplace transform $\mathbb{E}(e^{-sD})=\exp(-s^{\beta})$, $0<\beta<1$, i.e., there exists a regularly varying function $b \in RV(-1/\beta)$ such that
+\begin{align} \label{eq4}
+b(n)(W_1+\dots+W_n) \overset{d}{\longrightarrow} D.
+\end{align}
+Given a threshold $u \in (x_L,x_R)$, consider the stopping time 
+\begin{align}
+	\tau(u):=\min\{k \mid J_k > u \}
+\end{align}
+and define 
+\begin{align}
+	T(u)=\sum_{k=1}^{\tau(u)} W_k
+\end{align}
+the waiting time until the sequence $(J_i)$ exceeds the threshold $u$ for the first time. We will consider $T(u)$ as an estimator for the inter-arrival time of exceedances of $u$.
+Under some assumptions Hees \& Fried (2019) found out that 
+\begin{align}
+	\frac{T(u)}{b(1/\widebar{F}_J(u))} \overset{d}{\longrightarrow} Z_{\beta,\theta} \quad \text{as} \quad u \to x_R
+\end{align}
+with $\widebar{F}_J:=1-F_J$ and where $Z_{\beta,\theta}$ follows a mixture of the point measure in 0 and a Mittag-Leffler distribution, more precisely
+\begin{align}
+	Z_{\beta,\theta} \sim (1-\theta)\varepsilon_0+\theta\mathbb{P}_{\beta,\theta}
+\end{align}
+with $\mathbb{P}_{\beta,\theta}=ML(\beta,\theta^{-1/\beta})$.
+Therefore, we assume that for $u$ high enough $T(u)$ is approximately distributed like $X_{\beta,\theta,u}:=b(1/\widebar{F}_J(u)) \cdot Z_{\beta,\theta} \sim (1-\theta)\cdot\varepsilon_0+\theta \cdot ML(\beta,b(1/\widebar{F}_J(u)) \cdot \theta^{-1/\beta})$.
+\\
+Since the Mittag-Leffler distribution is heavy-tailed such that there are no finite moments, we look at the fractional moments of $X_{\beta,\theta,u}$. The $q$-th fractional moment of $X$ with $q \in (0,1)$, $q<\beta$, is given by
+\begin{align} 
+m_q:=m_q(X_{\beta,\theta,u}):&=\mathbb{E}(X_{\beta,\theta,u}^q) = \theta \cdot \frac{ q \cdot \pi \cdot (\theta^{-1/\beta}\cdot b(1/\widebar{F}_J(u)))^q }{\beta \cdot \Gamma(1-q)\sin(\frac{q \cdot \pi}{\beta})} 
+\end{align}
+Hence, by calculating
+\begin{align} \label{eq1}
+	\frac{m_q^2}{m_{2q}}=
+	\theta \cdot \frac{\frac{q\pi}{\beta}\cdot\Gamma(1-2q)\sin(\frac{2q\pi}{\beta})}{2\cdot\Gamma(1-q)^2\sin(\frac{q\pi}{\beta})^2}
+\end{align}
+we get rid of the unknown regularly varying function $b$ and the survival propability $\widebar{F}_J(u)$.
+Since $\lim\limits_{x \to 0}\frac{\sin(x\pi)}{x\pi} = 1$ (easily shown by using L'Hopital's rule) and $\Gamma(1)=1$ it follows 
+\begin{align} \label{eq2}
+\lim\limits_{q \to 0} \frac{m_q^2}{m_{2q}} = \theta.
+\end{align}
+Equations (\ref{eq1}) and (\ref{eq2}) lead to two ways of estimating $\beta$ and $\theta$ without the need of knowing $b \in RV(-1/\beta)$ or $\widebar{F}_J(u)$.
+By using the empirical fractional moments
+\begin{align}
+	\widehat{m}_q=\frac{1}{k_u}\sum_{i=1}^{k_u} T_i(u)
+\end{align}
+where $T_i(u)$, $i=1,\dots,k_u$ are the inter-arrival times of the threshold $u$ exceedances and $k_u$ is the number of exceedances, we get the following estimator for $\theta$ depending on $\beta$:
+\begin{align} \label{eq3}
+	\widehat{\theta}_q(\beta)=\frac{\widehat{m}_q^2}{\widehat{m}_{2q}}\cdot \frac{2\cdot\Gamma(1-q)^2\sin(\frac{q\pi}{\beta})^2}{\frac{q\pi}{\beta}\cdot\Gamma(1-2q)\sin(\frac{2q\pi}{\beta})}.
+\end{align}
+Hence, we have to estimate $\beta$ first by calculating the root of $\widehat{\theta}_{q_1}(\beta)-\widehat{\theta}_{q_2}(\beta)$ on $(2\cdot\max(q_1,q_2),1]$ (we choose $2\cdot\max(q_1,q_2)$ as the lower interval limit because $\beta>2\cdot q_1,2\cdot q_2$ has to be fulfilled, otherwise the fractional moments don't exist). 
+\\
+Alternatively, we can use the result of (\ref{eq2}) by choosing a very small fraction $q$ close to zero $0$. Then, the estimator for $\theta$ given by
+\begin{align}
+\widetilde{\theta}_q=\frac{\widehat{m}_q^2}{\widehat{m}_{2q}}
+\end{align}
+is independent of $\beta$. Afterwards we calculate $\hat{\beta}$ by solving (\ref{eq3}) for $\beta$ with $\widetilde{\theta}_q$ on the right side of the equation.
+\\
+Next to the choice of $q$ or $q_1$ and $q_2$ the choice of the threshold $u$ is important. We have to choose $u$ high enouqh such that the limiting result of (\ref{eq4}) holds, but the higher we choose $u$, the fewer observations we have for the estimates of the parameters $\beta$ and $\theta$.
+\\
+The above written are the theoretical results, now we want to test them by doing a small simulation study in \texttt{R}:
+\\
+Therefore we choose the \emph{Max-autoregressive (MAR) Processe} with extremal index $\theta \in (0,1)$ for $(J_i)_{i \in \mathbb{N}}$ which is defined by
+\begin{align}
+J_1&:=X_1/\theta \\
+J_i&:=(1-\theta) J_{i-1} \vee X_i \quad \text{for \ } n \ge 2
+\end{align}
+where $(X_i)_{i \in \mathbb{N}}$ are i.i.d. unit Fr{\'e}chet distributed random variables (Ferro \& Segers, 2003).
+The associated waiting time process $(W_i)_{i \in \mathbb{N}}$ is modeled as independent Pareto distributed random variables with c.d.f.
+\begin{align}
+	F_W(x):=1-\left(\frac{s}{x}\right)^{\beta} \qquad \text{for } 0<\beta<1, \ s>0 \text{ and } x\ge s.
+\end{align}
+The Pareto distribution with $s=\Gamma(1-\beta)^{-1/\beta}$ is in the domain of attraction of $D$ such that $b(n)=n^{-1/\beta}$ holds in (\ref{eq4}) (Meerschaert \& Sikorskii, 2012).
+\end{document}
