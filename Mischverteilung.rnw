@@ -120,7 +120,7 @@ By solving (\ref{eq1}) for $\theta$ and using the empirical fractional moment $\
 \begin{align}
 	\hat{\theta}_q(\beta)=\left[ \frac{\beta \cdot \Gamma(1-q)\sin(\frac{q \cdot \pi}{\beta})}{q \cdot \pi} \cdot \widehat{m}_q \right]^{\frac{\beta}{\beta-q}}
 \end{align}
-Therefore we have to estimate $\beta$ first by calculating the root of $\hat{\theta}_{q_1}(\beta)-\hat{\theta}_{q_2}(\beta)$ on $(\max(q_1,q_2),1]$ (we choose $\max(q_1,q_2)$ as the lower interval limit because $\beta>q_1,q_2$ has to be fulfilled, otherwise the fractional moments don't exist). 
+Therefore, we have to estimate $\beta$ first by calculating the root of $\hat{\theta}_{q_1}(\beta)-\hat{\theta}_{q_2}(\beta)$ on $(\max(q_1,q_2),1]$ (we choose $\max(q_1,q_2)$ as the lower interval limit because $\beta>q_1,q_2$ has to be fulfilled, otherwise the fractional moments don't exist). 
 It is important to choose the fractions $q_1$ and $q_2$ small enough (smaller than the (unknown) $\beta$) otherwise we can't find $\beta$ by calculating the root of $\hat{\theta}_{q_1}(\beta)-\hat{\theta}_{q_2}(\beta)$ because $\beta \notin (\max(q_1,q_2),1]$ for $\beta \le q_1,q_2$. $\hat{\theta}_q(\beta)$ is not unbiased but for smaller $q$ the bias gets smaller because of (\ref{eq2}).
 <<functions , echo = FALSE , cache = TRUE>>=
 ## functions:
@@ -177,7 +177,7 @@ legend("bottomright" , c("q=0.01" , "q=0.1" , "q=0.4" , "q=0.5" , "true paramete
 \end{figure}
 Figure \ref{fig1} shows $\hat{\theta}_q(\beta)$ depending on $\beta$ for various fractions $q$. We can see that the curves of lower fractions $q$ intersect the true parameter while the curve of $p=\Sexpr{beta}=\beta$ doesn't. As well we can see that for small fraction $q$ the estimator $\hat{\theta}_q(\beta)$ is less dependend of $\beta$.
 \\
-Now we look how it works with R:
+Now we look how it works with \texttt{R}:
 <<parameter estimation>>=
 set.seed(2345)
 ## chosen parameters:

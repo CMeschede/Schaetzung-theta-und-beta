@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.5.21)  18 JUN 2019 14:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.5.21)  28 JUN 2019 09:01
 entering extended mode
 **./Mischverteilung.tex
 (Mischverteilung.tex
@@ -728,7 +728,7 @@ LaTeX Info: Redefining \GenericError on input line 601.
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
-No file Mischverteilung.aux.
+(Mischverteilung.aux)
 \openout1 = `Mischverteilung.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
@@ -745,7 +745,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 130.
 LaTeX Font Info:    ... okay on input line 130.
 LaTeX Font Info:    Try loading font information for OT1+ppl on input line 130.
 
-("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\ot1ppl.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex/latex/psnfss\ot1ppl.fd"
 File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 )
 (C:\Users\meschede\AppData\Roaming\MiKTeX\2.9\tex/context/base/mkii\supp-pdf.mk
@@ -945,8 +945,8 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 16558 strings out of 492895
- 318865 string characters out of 3133470
+ 16560 strings out of 492895
+ 318964 string characters out of 3133470
  407898 words of memory out of 3000000
  20026 multiletter control sequences out of 15000+200000
  24278 words of font info for 78 fonts, out of 3000000 for 9000
@@ -965,7 +965,7 @@ ic/mathpazo/fplmr.pfb><C:/Users/meschede/AppData/Roaming/MiKTeX/2.9/fonts/type1
 fonts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/
 uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:
 /Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on Mischverteilung.pdf (4 pages, 156112 bytes).
+Output written on Mischverteilung.pdf (4 pages, 155797 bytes).
 PDF statistics:
  78 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
