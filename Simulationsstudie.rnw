@@ -102,7 +102,7 @@ and define
 the waiting time until the sequence $(J_i)$ exceeds the threshold $u$ for the first time. We will consider $T(u)$ as an estimator for the inter-arrival time of exceedances of $u$.
 Under some assumptions Hees \& Fried (2019) found out that 
 \begin{align}
-	\frac{T(u)}{b(1/\widebar{F}_J(u))} \overset{d}{\longrightarrow} Z_{\beta,\theta} \quad \text{as} \quad u \to x_R
+	\frac{T(u)}{b(1/\overline{F}_J(u))} \overset{d}{\longrightarrow} Z_{\beta,\theta} \quad \text{as} \quad u \to x_R
 \end{align}
 with $\widebar{F}_J:=1-F_J$ and where $Z_{\beta,\theta}$ follows a mixture of the point measure in 0 and a Mittag-Leffler distribution, more precisely
 \begin{align}
@@ -118,19 +118,19 @@ m_q:=m_q(X_{\beta,\theta,u}):&=\mathbb{E}(X_{\beta,\theta,u}^q) = \theta \cdot \
 Hence, by calculating
 \begin{align} \label{eq1}
 	\frac{m_q^2}{m_{2q}}=
-	\theta \cdot \frac{\frac{q\pi}{\beta}\cdot\Gamma(1-2q)\sin(\frac{2q\pi}{\beta})}{2\cdot\Gamma(1-q)^2\sin(\frac{q\pi}{\beta})^2}
+	\theta \cdot \frac{\frac{q\pi}{\beta}\cdot\Gamma(1-2q)\sin(\frac{2q\pi}{\beta})}{2\cdot\Gamma(1-q)^2\sin(\frac{q\pi}{\beta})^2}, \qquad \text{for \ } 2q<\beta
 \end{align}
 we get rid of the unknown regularly varying function $b$ and the survival propability $\widebar{F}_J(u)$.
-Since $\lim\limits_{x \to 0}\frac{\sin(x\pi)}{x\pi} = 1$ (easily shown by using L'Hopital's rule) and $\Gamma(1)=1$ it follows 
+Since $\lim\limits_{x \to 0}\frac{\sin(x\pi)}{x\pi} = 1$ (easily shown by using L'Hopital's rule) and $\Gamma(1)=1$ it follows that
 \begin{align} \label{eq2}
 \lim\limits_{q \to 0} \frac{m_q^2}{m_{2q}} = \theta.
 \end{align}
 Equations (\ref{eq1}) and (\ref{eq2}) lead to two ways of estimating $\beta$ and $\theta$ without the need of knowing $b \in RV(-1/\beta)$ or $\widebar{F}_J(u)$.
 By using the empirical fractional moments
 \begin{align}
-	\widehat{m}_q=\frac{1}{k_u}\sum_{i=1}^{k_u} T_i(u)
+	\widehat{m}_q=\frac{1}{k_u}\sum_{i=1}^{k_u} T_i^q(u)
 \end{align}
-where $T_i(u)$, $i=1,\dots,k_u$ are the inter-arrival times of the threshold $u$ exceedances and $k_u$ is the number of exceedances, we get the following estimator for $\theta$ depending on $\beta$:
+where $T_i(u)$, $i=1,\dots,k_u$, are the interarrival times of the threshold $u$ exceedances and $k_u$ is the number of exceedances, we get the following estimator for $\theta$ depending on $\beta$:
 \begin{align} \label{eq3}
 	\widehat{\theta}_q(\beta)=\frac{\widehat{m}_q^2}{\widehat{m}_{2q}}\cdot \frac{2\cdot\Gamma(1-q)^2\sin(\frac{q\pi}{\beta})^2}{\frac{q\pi}{\beta}\cdot\Gamma(1-2q)\sin(\frac{2q\pi}{\beta})}.
 \end{align}
@@ -146,7 +146,7 @@ Next to the choice of $q$ or $q_1$ and $q_2$ the choice of the threshold $u$ is 
 \\
 The above written are the theoretical results, now we want to test them by doing a small simulation study in \texttt{R}:
 \\
-Therefore we choose the \emph{Max-autoregressive (MAR) Processe} with extremal index $\theta \in (0,1)$ for $(J_i)_{i \in \mathbb{N}}$ which is defined by
+Therefore, we choose the \emph{Max-autoregressive (MAR) Process} with extremal index $\theta \in (0,1)$ for $(J_i)_{i \in \mathbb{N}}$ which is defined by
 \begin{align}
 J_1&:=X_1/\theta \\
 J_i&:=(1-\theta) J_{i-1} \vee X_i \quad \text{for \ } n \ge 2
@@ -157,4 +157,9 @@ The associated waiting time process $(W_i)_{i \in \mathbb{N}}$ is modeled as ind
 	F_W(x):=1-\left(\frac{s}{x}\right)^{\beta} \qquad \text{for } 0<\beta<1, \ s>0 \text{ and } x\ge s.
 \end{align}
 The Pareto distribution with $s=\Gamma(1-\beta)^{-1/\beta}$ is in the domain of attraction of $D$ such that $b(n)=n^{-1/\beta}$ holds in (\ref{eq4}) (Meerschaert \& Sikorskii, 2012).
+
+\subsection{Probleme}
+\begin{enumerate}
+	\item es gibt tatsächlich keine Wartezeiten, die gleich Null sind -> daher gilt nicht $\lim\limits_{p \to 0} m_p = \theta$. Sondern $\lim\limits_{p \to 0} m_p = 1$. 
+\end{enumerate}
 \end{document}
