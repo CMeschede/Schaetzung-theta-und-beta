@@ -1,6 +1,6 @@
-# Untersuchung, ob der Grenzwertsatz von Hees & Fried 2019 tatsaechlich stimmt
+# Untersuchung, ob die Grenzverteilung von Hees & Fried 2019 passt:
 
-# mixed distribution:
+# implemeniterung der mixed distribution:
 rmisch <- function(n, theta, beta, b) {
   p <- runif(n)
   ml <- MittagLeffleR::rml(n, beta, b * theta^(-1/beta))
@@ -13,8 +13,6 @@ pmisch <- function(q , theta , beta , b){
 }
 qmisch <- function(p ,theta , beta , b){
   ifelse(p<=(1-theta) , 0 , MittagLeffleR::qml((p-1+theta)/theta , beta , b*theta^(-1/beta)))
-  #x <- MittagLeffleR::qml((p-1+theta)/theta , beta , b*theta^(-1/beta))
-  #x[p<(1-theta)] <- 0
 }
 
 # function to get the k highest events and the associated interarrival times
@@ -61,7 +59,7 @@ EI <- 0.7
 # data:
 daten <- cbind(fct_MARdata(n = n , EI = EI) , fct_Paretodata(n = n , tail = tail))
 
-daten_k <- fct_thin(data = daten , k = k) # thinned data
+daten_k <- fct_thin(data = daten , k = k) # thinned data/Exceedances
 
 
 u <- sort(daten[,1], decreasing = TRUE)[k]; u # threshold
@@ -71,6 +69,7 @@ b <- (1-extRemes::pevd(EI * u , scale = 1 , shape = 1 , loc = 1))^(-1/tail); b #
 # plotted empirical cdf and theoretical cdf
 plot(ecdf(daten_k[,2]))
 lines(seq(0,60000000,5000),pmisch(seq(0,60000000,5000) , EI , tail , b) , col = "blue")
+## sieht ganz gut aus
 
 # qq-plot
 z1 <- sapply((1:k)/(k+1) , qmisch , theta = EI , beta = tail , b = b)
@@ -78,9 +77,13 @@ plot(sort(z1) , sort(daten_k[,2]) , xlab = "Quantile der Mischverteilung" ,
      ylab = "Exzess waiting times u0" #, ylim = c(0,50000) , xlim = c(0,50000)
 )
 points(c(0,500000000) , c(0,500000000) , type = "l" , col = "red")
+## der rechte Rand passt nicht so gut
 
 
 # Simulation:
+## hier ziehe ich N mal n Zufallszahlen der Mischverteilung und schaue mir so die Verteilung
+## der empirischen Quantile an. Wir sehen, dass gerade bei den hohen Quantilen eine hohe Variabilitaet
+## herrscht und dies den Rand des obrigen QQ-Plot erklärt
 
 N <- 10000 # number of iterations
 
@@ -88,10 +91,11 @@ sim <- replicate(N , rmisch(k , EI , tail , b) , simplify = "array")
 sim_sort <- apply(sim , 2 , sort , decreasing  = T)
 sim_sort_sort <- t(apply(sim_sort , 1 , sort , decreasing = T))
 
-plot((1:k)/(k+1) , rev(sim_sort_sort[,1]) , type = "l" , col = "blue" , log = "y"
-    ) # max
+plot((1:k)/(k+1) , rev(sim_sort_sort[,1]) , type = "l" , col = "blue" , log = "y") # max
 lines((1:k)/(k+1) , rev(sim_sort_sort[,10000]) , col = "blue") # min
 lines((1:k)/(k+1) , rev(sim_sort_sort[,250]) , col = "red") # 0.975
 lines((1:k)/(k+1) , rev(sim_sort_sort[,9750]) , col = "red") # 0.025
 lines((1:k)/(k+1) , z1 , col = "black") # theoretical
 lines((1:k)/(k+1) , sort(daten_k[,2]) , col = "orange") # sample
+
+## Es gibt keinen Anhaltspunkt, dass die Grenzverteilung nicht stimmt.
