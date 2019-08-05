@@ -16,7 +16,7 @@ summary(magnitudes)
 summary(interarrival)
 plot(cumsum(sort(interarrival,decreasing = F)))
 plot(sort(interarrival,decreasing = F) , log = "y")
-
+plot(sort(interarrival,decreasing = F))
 ## functions ####
 fct_thin <- function(data , k=NULL , u=NULL){
   JJ <- data[,1]
@@ -162,7 +162,7 @@ fit_GP <- sapply( u , function(y){
 # stability plots
 plot(q*100 , fit_GP[2,] , ylab = "shape" , xlab = "Threshold Quantile" , type = "o")
 plot(q*100 , fit_GP[1,]-u , ylab = "shape" , xlab = "Threshold Quantile" , 
-     type = "o" , log = "y")
+     type = "o")
 # keine Stabilisierung zu sehen
 
 
@@ -209,7 +209,7 @@ u1 <- u[q==0.99]
 
 data_u1 <- fct_thin(data , u = u1)
 
-Fu1 <- (1-Fu0)*extRemes::pevd(u1-u0 , scale = scale , shape = shape , type = "GP")+Fu0
+Fu1 <- (1-Fu0)*extRemes::pevd(u1-u0 , scale = scale1 , shape = shape1 , type = "GP")+Fu0
 z1 <- sapply(1:length(data_u1[,2]) , function(x){qexp(x/(length(data_u1[,2])+1))/(1-Fu1)})
 plot(sort(z1) , sort(data_u1[,2]) , xlab = "Quantile der Exponential Verteilung" , 
      ylab = "Exzess waiting times u0" #, ylim = c(0,10000)
@@ -418,7 +418,7 @@ fct_beta <- function(q1 , q2 , data){         # estimator for beta
                q2 = q2 , data = data)
   return(r$root)      }   
 
-k <- length(CTRE::interarrival(daten2)):10
+k <- length(CTRE::interarrival(daten)):10
 q1 <- 0.01
 q2 <- 0.05
 est <- sapply( k , function(x){

@@ -12,7 +12,7 @@ pmisch <- function(q , theta , beta , b){
   return(x)
 }
 qmisch <- function(p ,theta , beta , b){
-  ifelse(p<=(1-theta) , 0 , MittagLeffleR::qml((p-1+theta)/theta , beta , b*theta^(-1/beta)))
+  ifelse(p <= (1-theta) , 0 , MittagLeffleR::qml((p-1+theta)/theta , beta , b*theta^(-1/beta)))
 }
 
 # function to get the k highest events and the associated interarrival times
@@ -51,7 +51,7 @@ fct_Paretodata <- function( n , tail){
 }
 
 # parameter choice
-n <- 10000000    # sample size
+n <- 100000000    # sample size
 k <- 500      # number of exceedances
 tail <- 0.9   # tail parameter beta
 EI <- 0.7   
@@ -81,7 +81,7 @@ points(c(0,500000000) , c(0,500000000) , type = "l" , col = "red")
 
 
 # Simulation:
-## hier ziehe ich N mal n Zufallszahlen der Mischverteilung und schaue mir so die Verteilung
+## hier ziehe ich N mal k Zufallszahlen der Mischverteilung und schaue mir so die Verteilung
 ## der empirischen Quantile an. Wir sehen, dass gerade bei den hohen Quantilen eine hohe Variabilitaet
 ## herrscht und dies den Rand des obrigen QQ-Plot erklärt
 
@@ -98,4 +98,6 @@ lines((1:k)/(k+1) , rev(sim_sort_sort[,9750]) , col = "red") # 0.025
 lines((1:k)/(k+1) , z1 , col = "black") # theoretical
 lines((1:k)/(k+1) , sort(daten_k[,2]) , col = "orange") # sample
 
-## Es gibt keinen Anhaltspunkt, dass die Grenzverteilung nicht stimmt.
+plot((1:k)/(k+1) , sort(daten_k[,2]) , col = "orange" , log = "y") # sample
+
+## Es gibt keinen Anhaltspunkt, dass die Grenzverteilung nicht stimmt. 
